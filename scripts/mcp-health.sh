@@ -3,6 +3,7 @@
 set -euo pipefail
 
 # Load config.env if exists
+# shellcheck source=/dev/null
 CONFIG_FILE="$HOME/.openclaw/workspace/skills/mcp-health/config.env"
 if [[ -f "$CONFIG_FILE" ]]; then
     set -a  # auto-export
@@ -125,7 +126,6 @@ fi
 # Output
 HEALTHY_COUNT=$(echo "$RESULTS" | jq '[.[] | select(.status=="healthy")] | length')
 UNHEALTHY_COUNT=$(echo "$RESULTS" | jq '[.[] | select(.status=="unhealthy")] | length')
-ALERT_COUNT=$(echo "$ALERTS" | jq 'length')
 
 if [[ "$OUTPUT_FORMAT" == "json" ]]; then
   jq -n \
