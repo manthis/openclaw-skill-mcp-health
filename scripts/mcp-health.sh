@@ -2,6 +2,14 @@
 # mcp-health.sh — Health check for MCP servers (SSE, stdio via mcporter)
 set -euo pipefail
 
+# Load config.env if exists
+CONFIG_FILE="$HOME/.openclaw/workspace/skills/mcp-health/config.env"
+if [[ -f "$CONFIG_FILE" ]]; then
+    set -a  # auto-export
+    source "$CONFIG_FILE"
+    set +a
+fi
+
 # --- Config via env ---
 MCP_SERVERS="${MCP_SERVERS:-}"  # comma-separated server names
 MCPORTER_CMD="${MCPORTER_CMD:-mcporter}"
